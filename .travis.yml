@@ -17,12 +17,14 @@ before_script:
   - psql -c 'create database "deployment-exercise-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 create database:
   - deployment-exercise-test
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: mysterious-tundra-70641
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: 3/aEfH23oLvCsMnCfX+jJHm+klPK2GXAXbwH0mc43BZGv0psyf505vk4yOGvDJqBRigufFVBuL5etK1QNwHHi64rKuJJauswKj28LqEVaG1VBA3KZTy2AH/KPy3L5SudQwbVxuKTeb4wKkz329aJ+6j0Uh+HiXeS65Rtfvq5ym+zabCB9pLloHSKXLsOqaH+trZeUaP5RTyssdvH4K6DBCkVXdqF7AJ+dAzyqnbMvrkY2AYg0FjP2fKsv6gmu5MQKEOe7yY6JZjNRQ6DN49FAv/audTv49KMdzwtHrYyi+mgP5E0S1YDKDdHmJXOBsVx32CjjbN0s7Lo+E66St5og6rIvrT32zQIqpm8fxETqSVnOMT2O41134BwNp4zuDEhvP8zuVFehaheqRo7Uy20PIahF2xNI0yOyFiASBQM8rbR7Ir5o9f0ChqO9uwDiusIDzXQksoGtIM7y1KiTJbx2Xqtdi032yEbJxm8aZ6vOADv4Z5DQPWYnH6q6c1ajNub75LT1Hd8N91ZHp5w2l75P+DkVvGsX6o9OiRD7vLu0HSN9DU04i7Md7FxO6wkDVdm6LjknEMMgTeA4Rtwl2dXTPjWQJWWqkurEeI0BFZaFNwsWCZUR+6NUdlTLxuQYBrgjx5EoQVuwQHicXxV3oTwCI6uuPGCs0H+oWcpjYqGkbA=
